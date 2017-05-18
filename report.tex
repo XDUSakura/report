@@ -27,4 +27,49 @@
 %% 首先从 dev/base 牵出一个新的分支，加上所需要增加的导言区，然后再从此处牵出另一个新分支
 %% 并与所需要导言区的代码部分进行合并，并测试，测试成功之后，将第二次添加的分支删去
 %% 第一次添加的分支等待被合并回 dev/base 分支
-%% 然后其他
+%% 然后其他再根据邮件活着其他的内容进行合并
+
+%% 用于处理交叉引用并提供超链接
+%% CTAN: https://www.ctan.org/pkg/hyperref
+\usepackage{hyperref}
+
+%% 用于处理代码，显示代码的
+%% CTAN: https://www.ctan.org/pkg/listings
+\usepackage{listings}
+%% 配置 样式
+\lstset{ breaklines %% 控制换行
+       , numbers=left %% 在左边显示行号 
+       }
+%% 定义 Java 代码环境
+\lstnewenvironment{java}[1][]
+{ \lstset{#1%
+    }%
+  \csname lst@SetFirstLabel\endcsname}
+{ \csname lst@SaveFirstLabel\endcsname}
+
+
+%% 导言区结束
+
+%% 报告标题
+\title{Analyzation of Hadoop's File System \\ Hadoop 文件系统代码分析报告}
+%% 作者
+\author{李约瀚 \\ 14130140331 \\ qinka@live.com \\ me@qinka.pro %
+   \and 康赣鹏 \\ 14130140xxx \\ email@domain%
+   \and 乔新闻 \\ 14130140xxx \\ email@domain%
+   \and 罗赛男 \\ 14130140xxx \\ email@domain%
+   \and  杨瑞  \\ 14130140xxx \\ email@domain%
+   % 格式 姓名 【换行】 学号 【换行】 邮箱 【换行】 邮箱 （可以只有一个。。。
+   }
+
+
+\begin{document}
+    \maketitle
+    \tableofcontents
+    
+    %%　摘要
+    \input{summary}
+   
+    
+    
+\end{document}
+
