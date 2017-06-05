@@ -2,4 +2,21 @@
 \subsubsection{FSDataInputStream}
 \label{sec:uml:input:fsdatainputstream}
 
-\lstinline{FSDataInputStream}
+\lstinline{FSDataInputStream} 这个类提供了对 \lstinline|java.io| 包中的 \lstinline|DataInputStream| 支持。
+\lstinline{FSDataInputStream} 继承自 \lstinline|DataInputStream|，同时实现了 \lstinline|Seekable|, \lstinline|PositionedReadable|, \lstinline|ByteBufferReadable|, \lstinline|CanSetDropBehind|, \lstinline|CanSetReadahead| 等接口，
+以提供搜索，随机读取，以字节的缓冲试读取，以及丢弃缓存等功能。
+
+在 Hadoop 官方的 API 文档中，写着这样的一句话：
+\begin{quote}
+    Utility that wraps a FSInputStream in a DataInputStream and buffers input through a BufferedInputStream.
+\end{quote}
+意味着 \lstinline|FSDataInputStream| 融合了 \lstinline|DataInputStream| 和 \lstinline|FSInputStream|，同时提供了
+\lstinline|BufferedInputStream| 的输入方式。
+
+\lstinline|FSDataInputStream| 提供了一些列的扩展的读取方法与随机跳转的方法。读取的方法中，主要提供了基于 缓冲区的，和缓冲区池的
+读取方法。随机读取与跳转提供了寻找跳转与抛弃跳转的功能。
+\lstinline|FSDataInputStream| 再加上继承来的函数，其提供了一个对于分布式文件系统带来的输入流的“使用”。
+
+%% 类图
+
+%% 代码
