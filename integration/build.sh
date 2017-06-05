@@ -5,6 +5,6 @@
 ##
 
 ## 重要的东西编译三遍
-xetex report.tex
-xetex report.tex
-xetex report.tex
+xelatex report.tex
+xelatex report.tex
+xelatex report.tex
