@@ -1,0 +1,8 @@
+# using dockeer
+sudo: false
+# using 14.04
+dist: trusty
+
+before_install: source integration/before.sh
+script: source integration/build.sh
+after_success: source integration/after.sh
