@@ -1,0 +1,23 @@
+
+\subsubsection{DataInputStream}
+\label{sec:uml:input:datainputstream}
+
+在 Java 官方的 IO 包中，官方提供了 \lstline|DataInputStream| 这个类。
+在 API 文档中的描述如下
+\begin{quote}
+  A data input stream lets an application read primitive Java data types from an underlying input stream in a machine-independent way. 
+  An application uses a data output stream to write data that can later be read by a data input stream.
+
+  DataInputStream is not necessarily safe for multithreaded access. Thread safety is optional and is the responsibility of users of methods in this class.
+\end{quote}
+
+这一段描述交代了两件事， \lstinline|DataInputStream| 是一个用于读取“原始”的Java数据，并且与硬件底层无关。第二件事指出了其不是线程安全的，线程安全由用户保证。
+
+\lstinline|DataInputStream| 继承自 \FilterInputStream|， 同时实现了 \lstinline|DataInput| 接口。
+\lstinline|DataInputStream| 的使用基本上就是以 \lstinline|DataInputStream var = new DataInputStream(new InputStream(..));| 的方式使用，类似
+\lstinline|BufferedInputStream|类似。其提供了17个 read 函数的实例，分贝可以读取字节，布尔类型，字符类型，浮点类型，和整数类型，同是提供了读取一行，和跳过字节的功能。
+同时还从 \lstinline|FilterInputStream| 继承了一些其他的方法。
+
+%% 类图
+
+%% 代码（主要的read）
