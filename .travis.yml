@@ -1,5 +1,5 @@
 # using dockeer
-sudo: false
+sudo: require
 # using 14.04
 dist: trusty
 
