@@ -9,9 +9,10 @@ echo Begin
 ## update apt
 sudo apt update
 ## install
+sudo apt-get -y install xfonts-wqy
 sudo apt install -y --no-install-recommends texlive-full
 sudo apt install -y --no-install-recommends wget texlive-base texlive-xetex latex-xcolor xzdec \
-  texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended
+     texlive-fonts-recommended texlive-latex-extra lmodern texlive-latex-recommended
 # create texmf
 cd ~ && mkdir texmf
 tlmgr init-usertree

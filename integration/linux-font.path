@@ -1,0 +1,11 @@
+--- report.tex	2017-06-06 13:59:16.000000000 +0800
++++ report.linux.tex	2017-06-06 14:00:45.000000000 +0800
+@@ -21,6 +21,8 @@
+ 
+ % 使用 CTeX 的 Report 模版
+ \documentclass{ctexart}
++\setCJKmainfont{WenQuanYi Micro Hei}
++
+ 
+ %% 导言区
+ %% 所有需要添加的宏包，先创建新分支然后测试，最后等待负责的人，合并到主开发分支
