@@ -19,5 +19,101 @@
 同时还从 \lstinline|FilterInputStream| 继承了一些其他的方法。
 
 %% 类图
+如下图 \ref{fig:datainputstream} 是 这个类的 UML 类图。
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\linewidth]{datainputstream}
+\caption{DataInputStream 类的 UML 类图}
+\label{fig:datainputstream}
+\end{figure}
 
 %% 代码（主要的read）
+这个类主要继承于\lstinline|FilterInputStream| 并实现了 DataInput 接口。
+\begin{java}
+public class DataInputStream extends FilterInputStream implements DataInput {
+\end{java}
+类似的，构造函数也是直接“输入” 一个\lstinline|InputStream|。
+\begin{java}
+    public DataInputStream(InputStream in) {
+        /*...*/
+    }    
+\end{java}
+其提供了许多读取的用的方法。有一些相对比较常见的方法，接受字节输入。 
+\begin{java}
+    public final int read(byte b[]) throws IOException {
+        /*...*/
+    }
+    
+    public final int read(byte b[], int off, int len) throws IOException {
+        /*...*/
+    }
+    
+    public final void readFully(byte b[]) throws IOException {
+        /*...*/
+    }
+    
+    public final void readFully(byte b[], int off, int len) throws IOException {
+        /*...*/
+    }
+\end{java}
+同时还提供了跳过字节的方法，用来跳过特定数目的字节内容。
+\begin{java}
+    public final int skipBytes(int n) throws IOException {
+        /*...*/
+    }
+\end{java}
+此外就是一些用于读取特定数据内容的 “read”方法。
+包括读取:布尔类型，字节类型，无符号字节类型，短整型，无符号短整型，字符类型，整型，长整型，单精度浮点，双精度浮点等数据的功能。
+\begin{java}    
+    public final boolean readBoolean() throws IOException {
+        /*...*/
+    }
+    
+    public final byte readByte() throws IOException {
+        /*...*/
+    }
+    
+    public final int readUnsignedByte() throws IOException {
+        /*...*/
+    }
+    
+    public final short readShort() throws IOException {
+        /*...*/
+    }
+    
+    public final int readUnsignedShort() throws IOException {
+        /*...*/
+    }
+    
+    public final char readChar() throws IOException {
+        /*...*/
+    }
+    
+    public final int readInt() throws IOException {
+        /*...*/
+    }
+    
+    public final long readLong() throws IOException {
+        /*...*/
+    }
+    
+    public final float readFloat() throws IOException {
+        /*...*/
+    }
+    
+    public final double readDouble() throws IOException {
+        /*...*/
+    }    
+\end{java}
+当然也提供了读取一行喝读取 UTF 字符集字符的功能。
+\begin{java}    
+    @Deprecated
+    public final String readLine() throws IOException {
+        /*...*/
+    }
+    
+    public final String readUTF() throws IOException {
+        /*...*/
+    }   
+}
+\end{java}
