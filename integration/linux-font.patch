@@ -3,7 +3,7 @@
 @@ -21,6 +21,8 @@
  
  % 使用 CTeX 的 Report 模版
- \documentclass{ctexart}
+ \documentclass{ctexrep}
 +\setCJKmainfont{WenQuanYi Micro Hei}
 +
  
