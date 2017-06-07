@@ -1,0 +1,8 @@
+%% 批注九的回答
+
+\subsection{批注九的回答}
+\label{sec:fix:bl9}
+
+\lstinline|DataInputStream| 继承了 \lstinline|FilterInputStream|，其中 后者是使用 \lstinline|InputStream| 中的 \lstinline|read| 函数，封装了一些新的函数，
+提供更多的功能。而 \lstinline|DataInputStream| 继承后者之后，也是使用 \lstinline|InputStream| 并封装了一些新的函数。其中在这两个类中那个类型为 \lstinline|InputStream|
+的属性名称正是叫 \lstinline|in|。
