@@ -12,8 +12,8 @@
 	Java的IO模型设计非常优秀，它使用Decorator模式，按功能划分Stream，我们可以动态装配这些Stream，以便获得您需要的功能。例如，我们需要一个具有缓冲的文件输入流，则应当组合使用FileInputStream和BufferedInputStream。另外简单数一下Java IO中的装饰模式：在IO中，具体构件角色是节点流，装饰角色是过滤流。FilterInputStream和FilterOutputStream是装饰角色，而其他派生自它们的类则是具体装饰角色。如图\ref{fig:graph2} 所示
 	
 	\begin{figure}[H]
-		\centering
-		\includegraphics[width=3in,height=3in]{SA/common-io-diagram.png}
+		\centerings
+		\includegraphics[width=3in,height=3in]{common-io-diagram.png}
 		\caption{IntputStream部分类}
 		\label{fig:graph2}
 	\end{figure}
@@ -23,13 +23,13 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/hdfs-fsinputstream-methods-diagram.png}
+		\includegraphics[width=3in,height=3in]{hdfs-fsinputstream-methods-diagram.png}
 		\caption{hdfs-fsinputstream-methods-diagram}
 		\label{fig:graph3}
 	\end{figure}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/UML.png}
+		\includegraphics[width=3in,height=3in]{UML.png}
 		\caption{FSInputStream类和接口}
 		\label{fig:graph4}
 	\end{figure}
@@ -37,7 +37,7 @@
 	\subsubsection{PositionedReadable}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/PositionedReadable.png}
+		\includegraphics[width=3in,height=3in]{PositionedReadable.png}
 		\caption{PositionedReadable}
 		\label{fig:graph5}
 	\end{figure}
@@ -47,7 +47,7 @@
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/Seekable.png}
+		\includegraphics[width=3in,height=3in]{Seekable.png}
 		\caption{Seekable}
 		\label{fig:graph6}
 	\end{figure}
@@ -57,7 +57,7 @@
 	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/FSInputChecker.png}
+		\includegraphics[width=3in,height=3in]{FSInputChecker.png}
 		\caption{FSInputChecker}
 		\label{fig:graph7}
 	\end{figure}
@@ -65,7 +65,7 @@
 	FilterFileSystem 类包含了一个其它的文件系统的实例 fs，并将其作为基本的文件系统。FilterFileSystem 类几乎将所有重写的方法交给了其内部保存的 fs 来处理。但在交给 fs 处理之前，自己可以做一些处理，以此来实现过滤。
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=3in,height=3in]{SA/BufferedFSInputStream.png}
+		\includegraphics[width=3in,height=3in]{BufferedFSInputStream.png}
 		\caption{BufferedFSInputStream}
 		\label{fig:graph8}
 	\end{figure}
