@@ -39,7 +39,7 @@ private Set<Path> deleteOnExit = new TreeSet<Path>();
     deleteOnExit作为文件缓存，用来收集当前缓存中的文件Path。当文件系统关闭或JVM退出的时候，调用同步方法processDeleteOnExit将缓存中的文件全部安全删除。\\
     \\
     FileSystem为用户提供了一个访问不同文件系统的统一的接口，屏蔽了不同文件系统操作访问上的差异性。其主要提供的方法可以分为两大类：一部分是处理文件和目录相关的事务，另一部分则是文件的读写操作。\\
-    以下是FileSystem中定义的12个抽象方法，这12个方法应该是一个文件系统应具有的基本操作，而具体的实现则是取决于不同具体的文件系统的特点。
+    以下是FileSystem中定义的12个抽象方法，这12个方法应该是一个文件系统应具有的基本操作，可归纳为获取文件系统Uri，打开文件，创建文件，追加文件，重命名文件，删除文件，获取文件列表，获取和设置工作目录，创建文件夹，获取文件状态。其具体的实现则是取决于不同具体的文件系统的特点。
     \begin{java}[caption=FileSystem abstract method]
 public abstract URI getUri();
 
@@ -90,11 +90,12 @@ class TrackingFileInputStream extends FileInputStream {
         super(f);
     }
 }
-\end{java}
+        \end{java}
+    可以看出，LocalFSFileInputStream中包装了TrackingFileInputStream，而TrackingFileInputStream则是包装了FileInputStream。
 
     \subsubsection{FilterFileSystem}
         FilterFileSystem类主要是在其内部定义了一个Filesystem属性用于包含其他文件系统，FilterFileSystem用作其基本文件系统，可能性的提供转换数据或附加功能。\\
-        FilterFileSystem类本身简单地覆盖FileSystem的所有方法，将所有请求传递给其包含的文件系统。
+        FilterFileSystem类本身简单地覆盖FileSystem的所有方法，将所有请求传递给其包含的文件系统fs。
         \begin{java}[caption=FilterFileSystem]
 public class FilterFileSystem extends FileSystem {
     protected FileSystem fs;
@@ -177,7 +178,7 @@ public boolean reportChecksumFailure(Path p, FSDataInputStream in, long inPos, F
         \end{java}
 
     \subsubsection{DistributedFileSystem}
-        对HDFS的用户来说，DistributedFileSystem就代表了Hadoop分布式文件系统，用户只要操作DistributedFileSystem的对象来进行文件目录的建立、数据的存取操作，其他的都由DistributedFileSystem来完成，所以它为我们提供了一个HDFS的界面。
+        对HDFS的用户来说，DistributedFileSystem就代表了Hadoop分布式文件系统，用户只要操作DistributedFileSystem的对象来进行文件目录的建立、数据的存取操作，其他的都由DistributedFileSystem来完成，所以它为我们提供了一个HDFS的用户界面。
         \begin{java}[caption=DistributedFileSystem]
 public class DistributedFileSystem extends FileSystem {  
     private Path workingDir;  
@@ -195,7 +196,8 @@ public class DistributedFileSystem extends FileSystem {
 }  
         \end{java}
 
-        但是在HDFS内部，通过适配器模式将真正的操作步骤是交给了与服务器端交互的HDFS客户端（DFSClient）去完成，实现与HDFS集群上的其他节点进行交互功能。
+        但是在HDFS内部，通过适配器模式将真正的操作步骤是交给了与服务器端交互的HDFS客户端（DFSClient）去完成，实现与HDFS集群上的其他节点进行交互功能。\\
+        例如HDFS的rename方法实际上是适配到了DFSClient的rename方法。
         \begin{java}[caption=DistributedFileSystem.rename]
 public void rename(Path src, Path dst, final Options.Rename... options) throws IOException {
     statistics.incrementWriteOps(1);
@@ -220,6 +222,10 @@ public void rename(Path src, Path dst, final Options.Rename... options) throws I
     }
 }
         \end{java}
+        用户调用DFSClient的一个写入方法，DFSClient返回给用户一个输入流，用户向输入流中写入数据，写入的数据被透明的重定向到一个本地临时文件中，当写入数据量达到一个块容量（默认64M）或写入正常结束时，DFSClient向NameNode发送请求，NameNode回应一个DataNode列表。DFSClient将本地临时文件的数据传输到DataNode1上，DataNode1以4K为单位逐步接收数据，储存在本地仓库的同时将数据传输给DataNode2，DataNode2与DataNode1行为相同，像管道流水一样将数据传输到DataNode3，DataNode3只储存数据。\\
+        当用户输入正常结束时，NameNode将操作追加到日志并储存，文件写入正式生效。如果输入意外中断失败，则储存的文件丢失。\\
+        在默认配置下，会有三个内容相同的DataNode互为备份冗余以保证数据的可靠性。其中，DataNode1和DataNode2位于同一机架的不同节点上，数据传输代价较低，但同时损毁的可能性也较大。DataNode3则位于不同机架上，传输数据代价大，但更为安全可靠。\\
+        Hadoop采用这种DataNode分布策略在数据备份可靠性和性能延时上做出了平衡。
         \begin{figure}[h]
             \centering
             \includegraphics[width=1\linewidth]{HDFSInputTime}
@@ -230,10 +236,10 @@ public void rename(Path src, Path dst, final Options.Rename... options) throws I
 
     \subsubsection{其他文件系统实现}
         \begin{itemize}
-            \item[*] HarFileSystem
-            \item[*] HttpFSFileSystem
-            \item[*] HttpsFSFileSystem
-            \item[*] FTPFileSystem
+            \item[*] HarFileSystem：归档文件系统
+            \item[*] HttpFSFileSystem：基于Http协议的网络文件系统
+            \item[*] HttpsFSFileSystem：基于Https协议的网络文件系统
+            \item[*] FTPFileSystem：基于FTP文件传输协议的文件系统
         \end{itemize}
 
 
