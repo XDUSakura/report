@@ -1,7 +1,13 @@
 \section{Environment}
 \label{sec:environment}
 
+Hadoop 发展到今天，整个项目已经不能简单的用“庞大”这样的词语来形容了。运行 Hadoop 的环境通常需要配置很久，
+虽然依赖 Java 的跨平台的特性， Hadoop 在不同平台上移植不是难事，然而部署却需要花费不少功夫。
+通常的步骤是先编写一堆配置文件，然后初始化 HDFS， 最后验证并启动 Hadoop。
+好在 Hadoop 官方提供了 Dockerfile， 能比较容易的将 Hadoop 打包成 Docker镜像，然后运行。
 
+代码分析使用的是 Hadoop 2.8.0 的源代码，代码是从官方在 GitHub 上的仓库 fork 出来的。
+同时还运用到了 StartUML 等工具绘制 UML 类图等。
 
 %% 结束
 \endinput
