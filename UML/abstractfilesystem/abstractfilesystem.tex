@@ -1,4 +1,4 @@
-\section{Abstract File System}
+\subsection{Abstract File System}
 
 图 \ref{fig:architecture} 是这个类的层次结构图。
 \begin{figure}
@@ -8,10 +8,10 @@
 \label{fig:architecture}
 \end{figure}
 
-\subsection{AbstractFileSystem}
+\subsubsection{AbstractFileSystem}
 Abstract File System类是一个抽象类，为Hadoop文件系统的实现者提供了一个接口（类似于Unix的VFS）。应用程序不访问此类,而是使用FileContext 访问所有文件系统中的文件。传递给AbstractFileSystem的路径名可以是与“this”文件系统（即相同的方案和权限）匹配的完全限定URI，或者假定相对于“this”文件系统的根目录的Slash相对名称。
 
-\subsubsection{AbstractFileSystem类图}
+\paragraph{AbstractFileSystem类图}
 图 \ref{fig:abstractFileSystem1}  \ref{fig:abstractFileSystem2} 是这个类的UML类图。
 
 \begin{figure}
@@ -62,9 +62,9 @@ get方法是用于创建文件系统的主要工厂方法，获取uri的scheme�
 
 
 
-\subsection{DelegateToFileSystem}
+\subsubsection{DelegateToFileSystem}
 代理类是对各个具体的文件系统进行封装。抽象文件系统与fs不不同的是，fs的文件系统基本都是fs的直接子类。而在abstractfilesystem中很多文件系统都由delegatetofilesystem 代理。这些被代理的文件系统功能基本相同，实现只有些微的区别。
-\subsubsection{DelegateToFileSystem类图}
+\paragraph{DelegateToFileSystem类图}
 图 \ref{fig:DelegateToFileSystem} 是这个类的UML类图。
 \begin{figure}
 \centering
@@ -173,7 +173,7 @@ public class WebHdfs extends DelegateToFileSystem {
 \end{java}
 
 
-\subsection{FilterFs}
+\subsubsection{FilterFs}
 一个FilterFs包含一些作为基本文件系统的其它的文件系统，会提供数据转换等附加功能。这个类FilterFs本身就是简单的覆盖所有版本的AbstractFileSystem 的方法，将所有请求传递给包含的文件系统的子类。FilterFs可以进一步覆盖这些方法中的一些，也可以提供其他方法和域。FilterFs类中拥有一个AbstractFileSystem类型的属性myFs。FilterFs 将其作为基本的文件系统。FilterFs 类几乎将所有重写的方法交给了其内部保存的myFs 来处理。但在交给myFs 处理之前，自己可以做一些处理，以此来实现过滤。
 \begin{java}
 public abstract class FilterFs extends AbstractFileSystem {
@@ -206,11 +206,11 @@ public abstract class FilterFs extends AbstractFileSystem {
 \end{java}
 
 
-\subsection{ChecksumFs}
+\subsubsection{ChecksumFs}
 它提供了一个Checksumed Fs的基本实现，为每个原始文件创建一个校验和文件。在客户端生成并验证校验和。
 
 
-\subsection{LocalFs}
+\subsubsection{LocalFs}
 LocalFs是ChecksumFs的实现，在LocalFs的构造函数中，实际上new了一个RawLocalFs。
 
 \begin{java}
@@ -232,8 +232,8 @@ public class LocalFs extends ChecksumFs {
 
 
 
-\subsection{FileContext}
-\subsubsection{FileContext类图}
+\subsubsection{FileContext}
+\paragraph{FileContext类图}
 FileContext类为Hadoop文件系统的用户提供了一个接口。 它暴露了许多文件系统操作，例如创建，打开，列表。
 图 \ref{fig:FileContext1} \ref{fig:FileContext2}是这个类的UML类图。
 \begin{figure}

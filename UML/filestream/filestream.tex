@@ -1,11 +1,11 @@
-\section{FileSystem}
+\subsection{FileSystem}
     \begin{figure}[h]
         \centering
         \includegraphics[width=1\linewidth]{filesystemclass}
         \caption{FileSystem 类的 UML 类图}
         \label{fig:filesystemclass}
     \end{figure}
-\subsection{}
+
     \textit{FileSystem}作为文件系统最顶层抽象类，描述了一个文件系统的\textbf{抽象定义}，继承了\textit{org.apache.hadoop.conf.Configured}配置基类，并实现了\textit{java.io.Closeable}接口。提供了从XML配置文件生成符合配置描述的文件系统的功能。\\
     \textit{FileSystem}抽象类定义了文件系统所具有的\textbf{基本特征}和\textbf{基本操作}。\textit{FileSystem}具有以下属性：
     \begin{java}[caption=FileSystem attribute]
@@ -73,7 +73,7 @@ public abstract FileStatus getFileStatus(Path f) throws IOException;
 
     \end{java}
 
-\subsection{基于FileSystem实现的文件系统概述}
+\subsubsection{基于FileSystem实现的文件系统概述}
     \subsubsection{RawLocalFileSystem}
         \textit{RawLocalFileSystem}是\textit{Hadoop}中实现的本地文件系统，在该类中与文件元数据和目录相关的操作，都是通过\textbf{装饰器模式}适配到\textit{java.io.File}的对应API来完成的。\\
         \textit{LocalFSFileInputStream}的构造函数如下：
@@ -158,8 +158,8 @@ public boolean reportChecksumFailure(Path p, FSDataInputStream in, long inPos, F
         String suffix = "." + rand.nextInt();
         File badFile = new File(badDir, f.getName()+suffix);
         LOG.warn("Moving bad file " + f + " to " + badFile);
-        in.close();                               // close it first
-        boolean b = f.renameTo(badFile);                      // rename it
+        in.close();    // close it first
+        boolean b = f.renameTo(badFile);  // rename it
         if (!b) {
             LOG.warn("Ignoring failure of renameTo");
         }

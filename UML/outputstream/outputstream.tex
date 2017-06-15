@@ -1,4 +1,4 @@
-\section{OutputStream}
+\subsection{OutputStream}
 
 \begin{figure}
 \centering
@@ -40,7 +40,7 @@ public void write(byte [] b)
 public abstract void write(int b)
 \end{java}
 
-\subsection{FilterOutputStream}
+\subsubsection{FilterOutputStream}
 
 
 创建一个基于指定底层输出流的输出流过滤器。
@@ -90,7 +90,7 @@ public void close()
 \end{java}
 
 
-\subsection{FDataOutputStream}
+\subsubsection{FDataOutputStream}
 
 创建一个新的数据输出流，以将数据写入指定的底层输出流。计数器written设置为零。
 
@@ -177,7 +177,7 @@ public final int size()
 \end{java}
 
 
-FSDataOutputStrea
+\subsubsection{FSDataOutputStream}
 
 \begin{figure}
 \centering
@@ -511,8 +511,7 @@ public boolean isRoot() {
 \end{java}
 确定给定的路径字符串是否表示 windows 上的绝对路径。
 \begin{java}
-public static boolean isWindowsAbsolutePath(final String pathString,
-                                            final boolean slashed) {
+public static boolean isWindowsAbsolutePath(final String pathString, final boolean slashed) {
   int start = startPositionWithoutWindowsDrive(pathString);
   return start > 0
       && pathString.length() > start
@@ -577,7 +576,7 @@ public URI toUri() { return uri; }
 \end{java}
 
 
-\subsection{QuotaUsage}
+\subsubsection{QuotaUsage}
 \begin{figure}
 \centering
 \includegraphics[width =1\linewidth]{uml/outputstream/8.png}
@@ -686,7 +685,7 @@ public boolean isTypeQuotaSet() {
 \end{java}
 
 
-\subsection{ContentSummary}
+\subsubsection{ContentSummary}
 
 \begin{figure}
 \centering
@@ -845,7 +844,7 @@ public String toString(boolean qOption, boolean hOption, boolean tOption,
   }
 }
 \end{java}
-\subsection{FSOutputSummer}
+\subsubsection{FSOutputSummer}
 
 \begin{figure}
 \centering
