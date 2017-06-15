@@ -80,9 +80,9 @@ public class FSDataInputStream extends DataInputStream implements Seekable, Posi
     public ByteBuffer read(ByteBufferPool bufferPool, int maxLength, EnumSet<ReadOption> opts) throws IOException, UnsupportedOperationException {
         /*...*/
     }
-\end{code}
+\end{java}
 此外还提供了一些其他的方法，例如获取文件描述符，缓冲区的操作等。
-\begin{code}
+\begin{java}
     @Override
     public FileDescriptor getFileDescriptor() throws IOException {
         /*...*/

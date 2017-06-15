@@ -2,7 +2,7 @@
 \subsubsection{FSDataOutputStream}
 \begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{11.png}
+\includegraphics[width =1\linewidth]{UML/outputstream/11.png}
 \caption{outputstream 及其子类}
 \label{fig:OutputStream}
 \end{figure}
@@ -564,6 +564,7 @@ public static Path mergePaths(Path path1, Path path2) {
       path1.toUri().getAuthority(),
       path1.toUri().getPath() + path2Str);
 }
+\end{java}
 在路径中的最终名称中添加一个后缀。
 \begin{java}
 public Path suffix(String suffix) {
@@ -794,8 +795,7 @@ types - 要显示的存储类型
 对象的字符串表示形式
 
 \begin{java}
-public String toString(boolean qOption, boolean hOption,
-                       boolean tOption, List<StorageType> types) {
+public String toString(boolean qOption, boolean hOption, boolean tOption, List<StorageType> types) {
   return toString(qOption, hOption, tOption, false, types);
 }
 \end{java}
