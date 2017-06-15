@@ -338,10 +338,11 @@ public interface CanSetDropBehind {
 	throws IOException, UnsupportedOperationException;
 }
 \end{java}
+
 HDFS写文件过程
 \begin{figure}[h]
 \centering
-\includegraphics[width =1\linewidth]{write.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/write.png}
 \caption{HDFS写文件时序图}
 \label{fig:HDFS写文件时序图}
 \end{figure}
@@ -568,7 +569,10 @@ public static Path mergePaths(Path path1, Path path2) {
       path1.toUri().getAuthority(),
       path1.toUri().getPath() + path2Str);
 }
+\end{java}
+
 在路径中的最终名称中添加一个后缀。
+
 \begin{java}
 public Path suffix(String suffix) {
   return new Path(getParent(), getName()+suffix);
@@ -581,6 +585,7 @@ public URI toUri() { return uri; }
 
 
 \subsection{QuotaUsage}
+
 \begin{figure}
 \centering
 \includegraphics[width =1\linewidth]{uml/outputstream/8.png}
