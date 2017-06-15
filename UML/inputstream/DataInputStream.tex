@@ -14,8 +14,8 @@
 这一段描述交代了两件事， \lstinline|DataInputStream| 是一个用于读取“原始”的Java数据，并且与硬件底层无关。第二件事指出了其不是线程安全的，线程安全由用户保证。
 
 \lstinline|DataInputStream| 继承自 \lstinline|FilterInputStream|， 同时实现了 \lstinline|DataInput| 接口。
-\lstinline|DataInputStream| 的使用基本上就是以 \lstinline|DataInputStream var = new DataInputStream(new InputStream(..));| 的方式使用，类似
-\lstinline|BufferedInputStream|类似。其提供了17个 read 函数的实例，分贝可以读取字节，布尔类型，字符类型，浮点类型，和整数类型，同是提供了读取一行，和跳过字节的功能。
+\lstinline|DataInputStream| 的使用基本上就是以 \lstinline|DataInputStream var = new DataInputStream(new InputStream(..));| 的方式使用，类似与于
+\lstinline|BufferedInputStream|。其提供了17个 read 函数的实例，分贝可以读取字节，布尔类型，字符类型，浮点类型， 和整数类型，同是提供了读取一行，和跳过字节的功能。
 同时还从 \lstinline|FilterInputStream| 继承了一些其他的方法。
 
 %% 类图
@@ -105,7 +105,7 @@ public class DataInputStream extends FilterInputStream implements DataInput {
         /*...*/
     }    
 \end{java}
-当然也提供了读取一行喝读取 UTF 字符集字符的功能。
+当然也提供了读取一行和读取 UTF 字符集字符的功能。
 \begin{java}    
     @Deprecated
     public final String readLine() throws IOException {
