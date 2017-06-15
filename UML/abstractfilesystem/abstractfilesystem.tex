@@ -12,18 +12,26 @@
 Abstract File System类是一个抽象类，为Hadoop文件系统的实现者提供了一个接口（类似于Unix的VFS）。应用程序不访问此类,而是使用FileContext 访问所有文件系统中的文件。传递给AbstractFileSystem的路径名可以是与“this”文件系统（即相同的方案和权限）匹配的完全限定URI，或者假定相对于“this”文件系统的根目录的Slash相对名称。
 
 \subsubsection{AbstractFileSystem类图}
-图 \ref{fig:abstractFileSystem} 是这个类的UML类图。
+图 \ref{fig:abstractFileSystem1}  \ref{fig:abstractFileSystem2} 是这个类的UML类图。
+
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{UML/abstractfilesystem/abstractFileSystem.PNG}
-\caption{Abstract File System 的UML类图}
-\label{fig:abstractFileSystem}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/abstractFileSystem1.PNG}
+\caption{Abstract File System 的UML类图1}
+\label{fig:abstractFileSystem1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/abstractFileSystem2.PNG}
+\caption{Abstract File System 的UML类图2}
+\label{fig:abstractFileSystem2}
 \end{figure}
 从类图中我们可以看到，该类有对文件系统的基本操作。它与FileSystem有很多同名的方法，这些方法完成相同的功能，比如create，open，delete等等。getstatistics方法对于给定的文件系统获取统计数据。getinitialworkingdirectory方法获取文件系统初始工作目录。还有一些获取扩展属性的方法。
 
 \subsubsection{get方法}
 get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme确定一个配置属性名称fs.abastractfilesysytme.scheme.impl，将uri 和conf传递给createfilesystem函数。然后newInstance返回一个AbstractFileSystem的对象。
-\begin{lstlisting}[language=Java]
+\begin{java}
   public static AbstractFileSystem get(final URI uri, final Configuration conf)
       throws UnsupportedFileSystemException {
     return createFileSystem(uri, conf);
@@ -47,7 +55,7 @@ get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme
     }
     return (AbstractFileSystem) newInstance(clazz, uri, conf);
   }
-\end{lstlisting}
+\end{java}
 
 
 
@@ -67,7 +75,7 @@ get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme
 
 \subsubsection{fsImpl}
 在DelegateToFileSystem类中，有一个FileSystem类型的属性protected final FileSystem fsImpl，DelegateToFileSyste类的初始化要依靠这个属性。
-\begin{lstlisting}[language=Java]
+\begin{java}
 protected DelegateToFileSystem(URI theUri, FileSystem theFsImpl,
       Configuration conf, String supportedScheme, boolean authorityRequired)
       throws IOException, URISyntaxException {
@@ -77,13 +85,13 @@ protected DelegateToFileSystem(URI theUri, FileSystem theFsImpl,
     fsImpl.initialize(theUri, conf);
     fsImpl.statistics = getStatistics();
   }
-\end{lstlisting}
+\end{java}
 
 \subsubsection{S3A}
 S3：Amazon S3（Simple Storage Service）是一种数据存储服务。
 S3a：自Hadoop2.7以后运用的是s3a，s3a可支持较大的文件，具有更高的性能。替代以前的s3n.
 构造函数中的new S3AFileSystem()是通过DelegateToFileSystem 中的FileSystem类型的属性完成的。
-\begin{lstlisting}[language=Java]
+\begin{java}
 /**
  * S3A implementation of AbstractFileSystem.
  * This impl delegates to the S3AFileSystem
@@ -100,11 +108,11 @@ public class S3A extends DelegateToFileSystem{
     return Constants.S3A_DEFAULT_PORT;
   }
 }
-\end{lstlisting}
+\end{java}
 
 \subsubsection{RawLocalFs}
 RawLocalFs是不带校验和的原生本地文件系统。
-\begin{lstlisting}[language=Java]
+\begin{java}
 /**
  * The RawLocalFs implementation of AbstractFileSystem.
  *  This impl delegates to the old FileSystem
@@ -128,11 +136,11 @@ public class RawLocalFs extends DelegateToFileSystem {
 
   //......
 }
-\end{lstlisting}
+\end{java}
 
 \subsubsection{WebHdfs}
 提供对HDFS的安全读写访问的文件系统，它利用的是http协议。旨在替代HFTP和HSFTP。hftp是在http上提供对hdfs只读访问的文件系统，虽然其名称为hftp但它与ftp无关。
-\begin{lstlisting}[language=Java]
+\begin{java}
 /**
  * AbstractFileSystem implementation for HDFS over the web.
  */
@@ -162,12 +170,12 @@ public class WebHdfs extends DelegateToFileSystem {
     return fs;
   }
 }
-\end{lstlisting}
+\end{java}
 
 
 \subsection{FilterFs}
 一个FilterFs包含一些作为基本文件系统的其它的文件系统，会提供数据转换等附加功能。这个类FilterFs本身就是简单的覆盖所有版本的AbstractFileSystem 的方法，将所有请求传递给包含的文件系统的子类。FilterFs可以进一步覆盖这些方法中的一些，也可以提供其他方法和域。FilterFs类中拥有一个AbstractFileSystem类型的属性myFs。FilterFs 将其作为基本的文件系统。FilterFs 类几乎将所有重写的方法交给了其内部保存的myFs 来处理。但在交给myFs 处理之前，自己可以做一些处理，以此来实现过滤。
-\begin{lstlisting}[language=Java]
+\begin{java}
 public abstract class FilterFs extends AbstractFileSystem {
   private final AbstractFileSystem myFs;
 
@@ -195,7 +203,7 @@ public abstract class FilterFs extends AbstractFileSystem {
     return myFs.getInitialWorkingDirectory();
   }
   //......
-\end{lstlisting}
+\end{java}
 
 
 \subsection{ChecksumFs}
@@ -205,7 +213,7 @@ public abstract class FilterFs extends AbstractFileSystem {
 \subsection{LocalFs}
 LocalFs是ChecksumFs的实现，在LocalFs的构造函数中，实际上new了一个RawLocalFs。
 
-\begin{lstlisting}[language=Java]
+\begin{java}
 public class LocalFs extends ChecksumFs {
   LocalFs(final Configuration conf) throws IOException, URISyntaxException {
     super(new RawLocalFs(conf));
@@ -220,19 +228,26 @@ public class LocalFs extends ChecksumFs {
     this(conf);
   }
 }
-\end{lstlisting}
+\end{java}
 
 
 
 \subsection{FileContext}
 \subsubsection{FileContext类图}
 FileContext类为Hadoop文件系统的用户提供了一个接口。 它暴露了许多文件系统操作，例如创建，打开，列表。
-图 \ref{fig:FileContext} 是这个类的UML类图。
+图 \ref{fig:FileContext1} \ref{fig:FileContext2}是这个类的UML类图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{UML/abstractfilesystem/FileContext.PNG}
-\caption{FileContext的UML类图}
-\label{fig:FileContext}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/FileContext1.PNG}
+\caption{FileContext的UML类图1}
+\label{fig:FileContext1}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/FileContext2.PNG}
+\caption{FileContext的UML类图2}
+\label{fig:FileContext2}
 \end{figure}
 
 \subsubsection{getFileContext}
@@ -285,7 +300,7 @@ encryptDataTransfer
 
 \subsubsection{open}
 FileContext 中的很多方法是用来取代FileSystem中的方法的。包括create，mkdir，delete，open，setReplication，rename，setPermission，setOwner，setTimes，getFileStatus，getFileLinkStatus，getLinkTarget，getFileBlockLocations 等方法在AbstractFileSystem 中都有对应的方法。这些方法的实现具有相同的形式。比如open 方法的代码如下：
-\begin{lstlisting}[language=Java]
+\begin{java}
 /**
    * Opens an FSDataInputStream at the indicated Path using
    * default buffersize.
@@ -317,7 +332,7 @@ FileContext 中的很多方法是用来取代FileSystem中的方法的。包括create，mkdir，delet
       }
     }.resolve(this, absF);
   }
-\end{lstlisting}
+\end{java}
 FileContext.open是通过调用AbstractFileSystem.open来实现的。
 
 open操作的时序图示例：
