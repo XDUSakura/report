@@ -16,7 +16,7 @@ public void close()
 刷新此输出流并强制任何缓冲的输出字节被写出。通常来说flush是指出，如果以前写入的任何字节已经通过输出流的实现被缓冲，则这些字节应该立即被写入到它们的预定目的地。
 如果此流的预期目标是由底层操作系统（例如文件）提供的抽象，那么刷新流仅保证先前写入流的字节传递到操作系统进行写入; 它并不保证它们实际上被写入物理设备，如磁盘驱动器。
 
-该flush方法OutputStream不执行任何操作。
+在该flush方法中OutputStream不执行任何操作。
 \begin{java}
 public void flush()
 \end{java}
@@ -29,7 +29,7 @@ len将从偏移量开始的指定字节数组的字节写入off此输出流。�
 \begin{java}
 public void write(byte [] b,int off,int len)
 \end{java}
-将b.length指定字节数组的字节写入此输出流。总的来说write(b) 是它应该具有与通话完全相同的效果 write(b, 0, b.length)。
+将b.length指定字节数组的字节写入此输出流。
 \begin{java}
 public void write(byte [] b)
 \end{java}
