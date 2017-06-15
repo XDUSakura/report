@@ -1,17 +1,9 @@
-% !Mode:: "TeX:UTF-8"
-\documentclass[UTF8]{ctexart}
-
-\usepackage{graphicx}
-\usepackage{listings}
-
-\begin{document}
-
 \section{Abstract File System}
 
 图 \ref{fig:architecture} 是这个类的层次结构图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{architecture.PNG}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/architecture.PNG}
 \caption{Abstract File System 的层次结构图}
 \label{fig:architecture}
 \end{figure}
@@ -23,11 +15,11 @@ Abstract File System类是一个抽象类，为Hadoop文件系统的实现者提供了一个接口（类似
 图 \ref{fig:abstractFileSystem} 是这个类的UML类图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{abstractFileSystem.PNG}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/abstractFileSystem.PNG}
 \caption{Abstract File System 的UML类图}
 \label{fig:abstractFileSystem}
 \end{figure}
-从类图中我们可以看到，该类有对文件系统的基本操作。它与FileSystem有很多同名的方法，这些方法完成相同相同的功能，比如create，open，delete等等。getstatistics方法对于给定的文件系统获取统计数据。getinitialworkingdirectory方法获取文件系统初始工作目录。还有一些获取扩展属性的方法。
+从类图中我们可以看到，该类有对文件系统的基本操作。它与FileSystem有很多同名的方法，这些方法完成相同的功能，比如create，open，delete等等。getstatistics方法对于给定的文件系统获取统计数据。getinitialworkingdirectory方法获取文件系统初始工作目录。还有一些获取扩展属性的方法。
 
 \subsubsection{get方法}
 get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme确定一个配置属性名称fs.abastractfilesysytme.scheme.impl，将uri 和conf传递给createfilesystem函数。然后newInstance返回一个AbstractFileSystem的对象。
@@ -36,7 +28,7 @@ get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme
       throws UnsupportedFileSystemException {
     return createFileSystem(uri, conf);
   }
-  
+
     /**
    * Create a file system instance for the specified uri using the conf. The
    * conf is used to find the class name that implements the file system. The
@@ -63,12 +55,12 @@ get方法是用于创建文件系统的主要工厂方法，获取uri的scheme和authority。uri的scheme
 
 
 \subsection{DelegateToFileSystem}
-代理类是对各个具体的文件系统进行封装。抽象文件系统与fs不不同的是，fs的文件系统基本都是fs的直接子类。而在abstractfilesystem中很多文件系统都由delegatetofilesystem代理。这些被代理的文件系统功能基本相同，实现只有些微的区别。
+代理类是对各个具体的文件系统进行封装。抽象文件系统与fs不不同的是，fs的文件系统基本都是fs的直接子类。而在abstractfilesystem中很多文件系统都由delegatetofilesystem 代理。这些被代理的文件系统功能基本相同，实现只有些微的区别。
 \subsubsection{DelegateToFileSystem类图}
 图 \ref{fig:DelegateToFileSystem} 是这个类的UML类图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{DelegateToFileSystem.PNG}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/DelegateToFileSystem.PNG}
 \caption{DelegateToFileSystem的UML类图}
 \label{fig:DelegateToFileSystem}
 \end{figure}
@@ -90,7 +82,7 @@ protected DelegateToFileSystem(URI theUri, FileSystem theFsImpl,
 \subsubsection{S3A}
 S3：Amazon S3（Simple Storage Service）是一种数据存储服务。
 S3a：自Hadoop2.7以后运用的是s3a，s3a可支持较大的文件，具有更高的性能。替代以前的s3n.
-构造函数中的new S3AFileSystem()是通过DelegateToFileSystem中的FileSystem类型的属性完成的。
+构造函数中的new S3AFileSystem()是通过DelegateToFileSystem 中的FileSystem类型的属性完成的。
 \begin{lstlisting}[language=Java]
 /**
  * S3A implementation of AbstractFileSystem.
@@ -133,13 +125,13 @@ public class RawLocalFs extends DelegateToFileSystem {
     super(theUri, new RawLocalFileSystem(), conf,
         FsConstants.LOCAL_FS_URI.getScheme(), false);
   }
-  
+
   //......
 }
 \end{lstlisting}
 
 \subsubsection{WebHdfs}
-提供对HDFS的安全读写访问的文件系统，它利用的是htttp协议。旨在替代HFTP和HSFTP。hftp是在http上提供对hdfs只读访问的文件系统，虽然其名称为hftpdan但它与ftp无关。
+提供对HDFS的安全读写访问的文件系统，它利用的是http协议。旨在替代HFTP和HSFTP。hftp是在http上提供对hdfs只读访问的文件系统，虽然其名称为hftp但它与ftp无关。
 \begin{lstlisting}[language=Java]
 /**
  * AbstractFileSystem implementation for HDFS over the web.
@@ -174,7 +166,7 @@ public class WebHdfs extends DelegateToFileSystem {
 
 
 \subsection{FilterFs}
-一个FilterFs包含一些作为基本文件系统的其它的文件系统，会提供数据转换等附加功能。这个类FilterFs本身就是简单的覆盖所有具有版本的AbstractFileSystem 的方法，将所有请求传递给包含的文件系统的子类。FilterFs可以进一步覆盖这些方法中的一些，也可以提供其他方法和域。FilterFs类中拥有一个AbstractFileSystem类型的属性myFs。FilterFs 将其作为基本的文件系统。FilterFs 类几乎将所有重写的方法交给了其内部保存的myFs 来处理。但在交给myFs 处理之前，自己可以做一些处理，以此来实现过滤。
+一个FilterFs包含一些作为基本文件系统的其它的文件系统，会提供数据转换等附加功能。这个类FilterFs本身就是简单的覆盖所有版本的AbstractFileSystem 的方法，将所有请求传递给包含的文件系统的子类。FilterFs可以进一步覆盖这些方法中的一些，也可以提供其他方法和域。FilterFs类中拥有一个AbstractFileSystem类型的属性myFs。FilterFs 将其作为基本的文件系统。FilterFs 类几乎将所有重写的方法交给了其内部保存的myFs 来处理。但在交给myFs 处理之前，自己可以做一些处理，以此来实现过滤。
 \begin{lstlisting}[language=Java]
 public abstract class FilterFs extends AbstractFileSystem {
   private final AbstractFileSystem myFs;
@@ -238,7 +230,7 @@ FileContext类为Hadoop文件系统的用户提供了一个接口。 它暴露了许多文件系统操作，例
 图 \ref{fig:FileContext} 是这个类的UML类图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{FileContext.PNG}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/FileContext.PNG}
 \caption{FileContext的UML类图}
 \label{fig:FileContext}
 \end{figure}
@@ -254,7 +246,7 @@ myFContext.setWorkingDir(路路径);
 myFContext.open(path,…);…
 
 
-示例例2：获取具有特定URI的FileContext作为默认FS
+示例2：获取具有特定URI的FileContext作为默认FS
 myFContext = FileContext.getFileContext(URI);
 myFContext.create(path,…);
 \end{quote}
@@ -280,17 +272,17 @@ scheme（scheme：foo / bar）的相对路径是非法的。
 FileContext是Unix中每个进程文件相关状态的模拟。它包含两个属性：
 默认文件系统（用于解析斜杠相对名称）
 umask（用于文件权限）
-?一般来说，这些属性是在用户的环境中从默认配置文件获得的。
-?在服务器端指定了进一步的文件系统属性。文件系统操作默认使用这些服务器端默认值，除非另有说明指定。
-?文件系统相关的服务器端默认值为：
-?主目录（默认为“/ user / userName”）
-?初始wd（仅适用于本地fs）
-?复制因子
-?块大小
-?缓冲区大小
-?encryptDataTransfer
-?校验和选项。 （checksumType和bytesPerChecksum）
-?
+一般来说，这些属性是在用户的环境中从默认配置文件获得的。
+在服务器端指定了进一步的文件系统属性。文件系统操作默认使用这些服务器端默认值，除非另有说明指定。
+文件系统相关的服务器端默认值为：
+主目录（默认为“/ user / userName”）
+初始wd（仅适用于本地fs）
+复制因子
+块大小
+缓冲区大小
+encryptDataTransfer
+校验和选项。 （checksumType和bytesPerChecksum）
+
 \subsubsection{open}
 FileContext 中的很多方法是用来取代FileSystem中的方法的。包括create，mkdir，delete，open，setReplication，rename，setPermission，setOwner，setTimes，getFileStatus，getFileLinkStatus，getLinkTarget，getFileBlockLocations 等方法在AbstractFileSystem 中都有对应的方法。这些方法的实现具有相同的形式。比如open 方法的代码如下：
 \begin{lstlisting}[language=Java]
@@ -309,7 +301,7 @@ FileContext 中的很多方法是用来取代FileSystem中的方法的。包括create，mkdir，delet
       }
     }.resolve(this, absF);
   }
-  
+
   /**
    * Opens an FSDataInputStream at the indicated Path.
    */
@@ -332,10 +324,8 @@ open操作的时序图示例：
 图 \ref{fig:sequence} 是这个类的层次结构图。
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{sequence.PNG}
+\includegraphics[width=1\linewidth]{UML/abstractfilesystem/sequence.PNG}
 \caption{open操作的时序图}
 \label{fig:sequence}
 \end{figure}
 
-
-\end{document}
