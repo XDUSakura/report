@@ -39,7 +39,7 @@ private Set<Path> deleteOnExit = new TreeSet<Path>();
         \textit{deleteOnExit}作为文件缓存，用来收集当前缓存中的文件\textit{Path}。当文件系统关闭或JVM退出的时候，调用同步方法\textit{processDeleteOnExit}将缓存中的文件全部安全删除。\\
     \\
     \textit{FileSystem}为用户提供了一个访问不同文件系统的统一的\textbf{接口}，屏蔽了不同文件系统操作访问上的\textbf{差异性}。其主要提供的方法可以分为两大类：一部分是处理文件和目录相关的事务，另一部分则是文件的读写操作。\\
-    以下是\textit{FileSystem}中定义的12个抽象方法，这12个方法应该是一个文件系统应具有的\textbf{基本操作}，可归纳为获取文件系统Uri，打开文件，创建文件，追加文件，重命名文件，删除文件，获取文件列表，获取和设置工作目录，创建文件夹，获取文件状态。其具体的实现则是取决于不同具体的文件系统的特点。
+    以下是\textit{FileSystem}中定义的12个抽象方法，这12个方法应该是一个文件系统应具有的\textbf{基本操作}，可归纳为获取文件系统URI，打开文件，创建文件，追加文件，重命名文件，删除文件，获取文件列表，获取和设置工作目录，创建文件夹，获取文件状态。其具体的实现则是取决于不同的文件系统的特点。
     \begin{java}[caption=FileSystem abstract method]
 public abstract URI getUri();
 
