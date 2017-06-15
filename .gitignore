@@ -183,3 +183,7 @@ TSWLatexianTemp*
 auto
 \#*
 *~
+
+## For Mac
+.DS_Store
+

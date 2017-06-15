@@ -1,0 +1,7 @@
+%% 批注六的回答
+
+\subsection{批注六的回答}
+\label{sec:fix:bl6}
+
+管道作为一种数据传送接口来说一般需要一个入口与一个出口，就像水管一样， 一头流入同时一头流出。\lstinline|PipedOutputStream| 作为一个数据源，需要有一个输出的地方，所以可以
+与 一个\lstinline|FilterInputStream| 对接然后获取数据。例如将\lstinline|PipedOutputStream|与\lstinline|PipedInputStream|组合到一起形成一个管道。
