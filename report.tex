@@ -33,13 +33,17 @@
 %% CTAN: https://www.ctan.org/pkg/hyperref
 \usepackage{hyperref}
 
+\usepackage{color}
+\definecolor{background}{rgb}{0.99,0.99,0.98}
+\definecolor{keyword}{rgb}{0.157,0.157,1}
+\definecolor{comment}{rgb}{0,0.376,0.376}
+\definecolor{string}{rgb}{0.5,0,0}
+
 %% 用于处理代码，显示代码的
 %% CTAN: https://www.ctan.org/pkg/listings
 \usepackage{listings}
 %% 配置 样式
-\lstset{ breaklines %% 控制换行
-       , numbers=left %% 在左边显示行号
-       }
+\lstset{breaklines,numbers=left,backgroundcolor=\color{background},keywordstyle=\color{keyword},numberstyle=\footnotesize\color{green},commentstyle=\it\color{comment},stringstyle=\rmfamily\slshape\color{string}}
 %% 定义 Java 代码环境
 \lstnewenvironment{java}[1][]
 { \lstset{#1%
