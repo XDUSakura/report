@@ -8,20 +8,20 @@
 
 OutputStream
 
-关闭此输出流并释放与此流相关联的任何系统资源。总的合同close 是关闭输出流。封闭流不能执行输出操作，无法重新打开。
+关闭此输出流并释放与此流相关联的任何系统资源。总的来说close 是关闭输出流。封闭流不能执行输出操作，无法重新打开。
 该close方法OutputStream不执行任何操作。
 \begin{java}
 public void close()
 \end{java}
-刷新此输出流并强制任何缓冲的输出字节被写出。通常的合同flush是指出，如果以前写入的任何字节已经通过输出流的实现被缓冲，则这些字节应该立即被写入到它们的预定目的地。
+刷新此输出流并强制任何缓冲的输出字节被写出。通常来说flush是指出，如果以前写入的任何字节已经通过输出流的实现被缓冲，则这些字节应该立即被写入到它们的预定目的地。
 如果此流的预期目标是由底层操作系统（例如文件）提供的抽象，那么刷新流仅保证先前写入流的字节传递到操作系统进行写入; 它并不保证它们实际上被写入物理设备，如磁盘驱动器。
 
 该flush方法OutputStream不执行任何操作。
 \begin{java}
 public void flush()
 \end{java}
-len将从偏移量开始的指定字节数组的字节写入off此输出流。一般合同write(b, off, len)是数组b中的一些字节按顺序写入输出流; 元素b[off]是写入的第一个字节，b[off+len-1]是此操作写入的最后一个字节。
-所述write的方法OutputStream被写出呼叫在每个字节中的一个参数的写入方法。鼓励子类覆盖此方法并提供更有效的实现。
+len将从偏移量开始的指定字节数组的字节写入off此输出流。一般来说write(b, off, len)是数组b中的一些字节按顺序写入输出流; 元素b[off]是写入的第一个字节，b[off+len-1]是此操作写入的最后一个字节。
+所述write的方法OutputStream被调用在每个字节中的一个参数的写入方法。鼓励子类覆盖此方法并提供更有效的实现。
 
 如果b是null， NullPointerException则抛出一个。
 
@@ -29,11 +29,11 @@ len将从偏移量开始的指定字节数组的字节写入off此输出流。�
 \begin{java}
 public void write(byte [] b,int off,int len)
 \end{java}
-将b.length指定字节数组的字节写入此输出流。总的合同write(b) 是它应该具有与通话完全相同的效果 write(b, 0, b.length)。
+将b.length指定字节数组的字节写入此输出流。总的来说write(b) 是它应该具有与通话完全相同的效果 write(b, 0, b.length)。
 \begin{java}
 public void write(byte [] b)
 \end{java}
-将指定的字节写入此输出流。一般的合同write是一个字节被写入输出流。要写入的字节是参数的8个低位b。24个高位b被忽略。
+将指定的字节写入此输出流。一般来说write是一个字节被写入输出流。要写入的字节是参数的8个低位b。24个高位b被忽略。
 子类OutputStream必须为此方法提供一个实现。
 \begin{java}
 public abstract void write(int b)
