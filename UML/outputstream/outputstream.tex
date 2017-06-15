@@ -8,6 +8,7 @@
 \end{figure}
 
 
+
 关闭此输出流并释放与此流相关联的任何系统资源。总的来说close 是关闭输出流。封闭流不能执行输出操作，无法重新打开。
 该close方法OutputStream不执行任何操作。
 \begin{java}
@@ -39,7 +40,8 @@ public void write(byte [] b)
 public abstract void write(int b)
 \end{java}
 
-FilterOutputStream
+\subsection{FilterOutputStream}
+
 
 创建一个基于指定底层输出流的输出流过滤器。
 参数：
@@ -87,7 +89,8 @@ public void flush()
 public void close()
 \end{java}
 
-DataOutputStream
+
+\subsection{FDataOutputStream}
 
 创建一个新的数据输出流，以将数据写入指定的底层输出流。计数器written设置为零。
 
@@ -173,18 +176,19 @@ public final void writeUTF(String str)
 public final int size()
 \end{java}
 
-FSDataOutputStream
 
-\begin{figure}[h]
+FSDataOutputStrea
+
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{1.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/1.png}
 \caption{FSDataOutputStream}
 \label{fig:FSDataOutputStream}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{2.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/2.png}
 \caption{Hierarchy of FSDataOutputStream}
 \label{fig:Hierarchy of FSDataOutputStream}
 \end{figure}
@@ -296,9 +300,9 @@ public void setDropBehind(Boolean dropBehind) throws IOException {
 \end{java}
 
 
-\begin{figure}[h]
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{3.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/3.png}
 \caption{PositionCache}
 \label{fig:PositionCache}
 \end{figure}
@@ -343,14 +347,14 @@ Path
 
 \begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{6.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/6.png}
 \caption{Path}
 \label{fig:Path}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{7.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/7.png}
 \caption{Hierarchy of Path}
 \label{fig:Hierarchy of Path}
 \end{figure}
@@ -572,11 +576,11 @@ public Path suffix(String suffix) {
 public URI toUri() { return uri; }
 \end{java}
 
-QuotaUsage
 
-\begin{figure}[h]
+\subsection{QuotaUsage}
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{8.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/8.png}
 \caption{QuotaUsage}
 \label{fig:QuotaUsage}
 \end{figure}
@@ -681,18 +685,19 @@ public boolean isTypeQuotaSet() {
 }
 \end{java}
 
-ContentSummary
 
-\begin{figure}[h]
+\subsection{ContentSummary}
+
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{9.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/9.png}
 \caption{ContentSummary}
 \label{fig:ContentSummary}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{10.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/10.png}
 \caption{Hierarchy of ContentSummary}
 \label{fig:Hierarchy of ContentSummary}
 \end{figure}
@@ -840,17 +845,18 @@ public String toString(boolean qOption, boolean hOption, boolean tOption,
   }
 }
 \end{java}
-FSOutputSummer
-\begin{figure}[h]
+\subsection{FSOutputSummer}
+
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{4.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/4.png}
 \caption{FSOutputSummer}
 \label{fig:FSOutputSummer}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
 \centering
-\includegraphics[width =1\linewidth]{5.png}
+\includegraphics[width =1\linewidth]{uml/outputstream/5.png}
 \caption{Hierarchy of FSOutputSummer}
 \label{fig:Hierarchy of FSOutputSummer}
 \end{figure}
